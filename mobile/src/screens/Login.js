@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -8,17 +8,39 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import LottieView from 'lottie-react-native';
+import Axios  from 'axios';
 
 export default function Login({navigation}) {
+
+  const handleLogin = (values, okCallback) => {
+    Axios.post("http://192.168.2.105:3001/login", {
+      user: values.user,
+      password: values.password,
+    }).then((response) => {
+      if(response.data.status === 0){
+        okCallback();
+      }else {
+        alert(response.data.msg);
+      }
+    }).catch ((err) => {
+      console.log(err);
+    });;
+  };
+  
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
     <View style={styles.container}>
       <View style={styles.login}>
         <Text style={styles.title}>EVERYMIND</Text>
-        <TextInput placeholder="Usuário" style={styles.inputText} />
-        <TextInput placeholder="Senha" style={styles.inputText} />
+        <TextInput placeholder="Usuário" onChangeText={(item) => {setEmail(item)}} style={styles.inputText} />
+        <TextInput placeholder="Senha" onChangeText={(item) => {setPassword(item)}} style={styles.inputText} />
       </View>
       <View style={styles.touchableWrapper}>
-        <TouchableOpacity onPress={() => {navigation.navigate('Main');}}>
+        <TouchableOpacity onPress={() => {
+          handleLogin({email, password}, () => {navigation.navigate('Main');});
+          }}>
           <View style={styles.styleButton}>
             <Text> Login </Text>
           </View>

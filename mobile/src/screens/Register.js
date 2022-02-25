@@ -1,27 +1,45 @@
 /* eslint-disable prettier/prettier */
 import {StyleSheet, Text, View, TextInput, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import LottieView from 'lottie-react-native';
+import Axios from 'axios';
 
 
 const Register = ({navigation}) => {
+
+  const handleRegister = (values, okCallback) => {
+    Axios.post("http://192.168.2.105:3001/register", {
+      email: values.email,
+      password: values.password,
+    }).then((response) => {
+      console.log("passou")
+      if(response.data.status === 0){
+        okCallback();
+      }else {
+        alert(response.data.msg);
+      }
+    }).catch ((err) => {
+      console.log(err);
+    });
+  };
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
     <View style={styles.container}>
         <View style={{width: '50%', height: '20%', alignSelf: 'center'}}>
-
-<LottieView source={require('../utils/gifs/68794-cute-astronaut-operating-laptop.json')} autoPlay loop />
-</View>
+          <LottieView source={require('../utils/gifs/68794-cute-astronaut-operating-laptop.json')} autoPlay loop />
+        </View>
         <View style={styles.login}>
             <Text style={styles.title}>Cadastro</Text>
-            <TextInput placeholder="Nome" style={styles.inputText} />
-            <TextInput placeholder="CPF" style={styles.inputText} />
-            <TextInput placeholder="Data de nascimento" style={styles.inputText} />
-            <TextInput placeholder="Email" style={styles.inputText} />
-            <TextInput placeholder="Usuário" style={styles.inputText} />
-            <TextInput placeholder="Senha" style={styles.inputText} />
+            <TextInput placeholder="Email" onChangeText={(item) => {setEmail(item)}} style={styles.inputText} />
+            <TextInput placeholder="Senha" onChangeText={(item) => {setPassword(item)}} style={styles.inputText} />
         </View>
         <View>
-            <TouchableOpacity onPress={() => {navigation.navigate('Login');}}>
+        <TouchableOpacity onPress={() => {
+          handleRegister({email, password}, () => {});
+          }}>
             <View style={styles.styleButton}>
                 <Text> Confirmar </Text>
             </View>
