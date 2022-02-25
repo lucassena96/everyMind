@@ -14,7 +14,7 @@ export default function Login({navigation}) {
 
   const handleLogin = (values, okCallback) => {
     Axios.post("http://192.168.2.105:3001/login", {
-      user: values.user,
+      email: values.email,
       password: values.password,
     }).then((response) => {
       if(response.data.status === 0){
@@ -34,7 +34,7 @@ export default function Login({navigation}) {
     <View style={styles.container}>
       <View style={styles.login}>
         <Text style={styles.title}>EVERYMIND</Text>
-        <TextInput placeholder="Usuário" onChangeText={(item) => {setEmail(item)}} style={styles.inputText} />
+        <TextInput placeholder="Email" onChangeText={(item) => {setEmail(item)}} style={styles.inputText} />
         <TextInput placeholder="Senha" onChangeText={(item) => {setPassword(item)}} style={styles.inputText} />
       </View>
       <View style={styles.touchableWrapper}>

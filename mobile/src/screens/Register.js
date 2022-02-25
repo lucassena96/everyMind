@@ -38,7 +38,7 @@ const Register = ({navigation}) => {
         </View>
         <View>
         <TouchableOpacity onPress={() => {
-          handleRegister({email, password}, () => {});
+          handleRegister({email, password}, () => {navigation.pop()});
           }}>
             <View style={styles.styleButton}>
                 <Text> Confirmar </Text>

@@ -11,15 +11,14 @@ const Main = () => {
         <Text style={styles.title}>EVERYMIND</Text>
       </View>
       <View style={styles.texts}>
-          <Text style={styles.welcome}>Bem Vindo a Everymind, Lucas Sena de 25 anos!</Text>
-          <Text style={styles.welcome}>Vamos enviar para o email abc@gmail.com as informações com os próximos passos.</Text>
+          <Text style={styles.welcome}>Bem Vindo a Everymind!</Text>
+          <Text style={styles.welcome}>Vamos enviar para o seu email as informações com os próximos passos.</Text>
           <Text style={[styles.welcome, {alignSelf: 'center', marginTop: 50, fontSize: 25}]}>Obrigado!</Text>
       </View>
 
       <View style={{width: '50%', height: '20%', alignSelf: 'center'}}>
         <LottieView source={require('../utils/gifs/89032-victory-sign-baby-astronaut.json')} autoPlay loop />
       </View>
-
     </View>
 
   );
